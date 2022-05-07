@@ -1,5 +1,5 @@
 import { Component } from 'react/cjs/react.production.min';
-import MarverService from '../../services/MarverService';
+import MarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMassage/ErrorMessage';
 
@@ -7,10 +7,6 @@ import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
 
 class RandomChar extends Component {
-    constructor(props) {
-        super(props);
-        this.updateChar();
-    }
 
     state = {
         char: {},
@@ -18,7 +14,7 @@ class RandomChar extends Component {
         error: false
     }
 
-    marverService = new MarverService();
+    marvelService = new MarvelService();
 
     onCharLoaded = (char) => {
         this.setState({ char, loading: false })
@@ -33,10 +29,17 @@ class RandomChar extends Component {
 
     updateChar = () => {
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-        this.marverService
+        this.marvelService
             .getCharacters(id)
             .then(this.onCharLoaded)
             .catch(this.onError);
+    }
+    componentDidMount() {
+        this.timerId = setInterval(this.updateChar(), 3000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerId)
     }
 
     render() {
@@ -58,7 +61,7 @@ class RandomChar extends Component {
                     <p className="randomchar__title">
                         Or choose another one
                     </p>
-                    <button className="button button__main">
+                    <button onClick={this.updateChar} className="button button__main">
                         <div className="inner">try it</div>
                     </button>
                     <img src={mjolnir} alt="mjolnir" className="randomchar__decoration" />
@@ -71,6 +74,7 @@ class RandomChar extends Component {
 const View = ({ char }) => {
     const { name, thumbnail, homepage, wiki } = char;
     let { description } = char;
+    let clazzImg = thumbnail.includes("image_not_available") ? "randomchar__img randomchar__img__undefined" : "randomchar__img";
     if (!description) {
         description = "Character information missing!"
     }
@@ -79,7 +83,7 @@ const View = ({ char }) => {
     }
     return (
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" className="randomchar__img" />
+            <img src={thumbnail} alt="Random character" className={clazzImg} />
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">{description}</p>
