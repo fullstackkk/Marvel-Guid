@@ -7,19 +7,6 @@ import './charList.scss';
 
 class CharList extends Component {
 
-    /* [
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' },
-            { name: 'Captain Marvel', thumbnail: 'http://i.annihil.us/u/prod/marvel/i/mg/6/80/5269608c1be7a.jpg' }
-        ] */
-
-
     state = {
         charList: [],
         loading: true,
