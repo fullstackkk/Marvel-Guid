@@ -1,4 +1,3 @@
-Prilozheniye vypolneno v ramkakh pet-proyekta. Prilozheniye na temu komiksov Marvel , pozvolyayeet poluchit' informatsiyu o personazhakh ikh biografii i poyavleniyakh v kommiksakh.
 The application was made as part of a pet project. An application on the theme of Marvel comics, allows you to get information about the characters, their biographies and appearances in comics.
 
 Standard application on React.
