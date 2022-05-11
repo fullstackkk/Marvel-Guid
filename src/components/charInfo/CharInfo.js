@@ -1,11 +1,76 @@
+import { Component } from 'react/cjs/react.production.min';
+import MarvelService from '../../services/MarvelService';
+import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMassage/ErrorMessage';
+import Skeleton from '../skeleton/Skeleton';
+
 import './charInfo.scss';
 import thor from '../../resources/img/thor.jpeg';
 
-const CharInfo = () => {
+class CharInfo extends Component {
+
+    state = {
+        char: {},
+        loading: false,
+        error: false
+    }
+
+    marvelService = new MarvelService();
+
+    componentDidMount() {
+        this.updateChar();
+    }
+
+    updateChar = () => {
+        const { charId } = this.props;
+        if (!charId) {
+            return
+        }
+        this.onCharLoading();
+        this.marvelService()
+            .getCharacters(charId)
+            .then(this.onCharLoaded)
+            .catch(this.onError)
+    }
+
+    onCharLoaded = (char) => {
+        this.setState({
+            char,
+            loading: false
+        })
+    }
+
+    onCharLoading = () => {
+        this.setState({
+            loading: true
+        })
+    }
+
+    onError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
+    }
+
+    render() {
+        const { char, loading, error } = this.state;
+        const errorMassage = error ? <ErrorMessage /> : null;
+        const spiner = loading ? <Spinner /> : null
+        const content = !(loading || error) ? <View char={char} /> : null
+        return (
+            <div className="char__info">
+
+            </div>
+        )
+    }
+}
+
+const View = ({ char }) => {
     return (
-        <div className="char__info">
+        <>
             <div className="char__basics">
-                <img src={thor} alt="abyss"/>
+                <img src={thor} alt="abyss" />
                 <div>
                     <div className="char__info-name">thor</div>
                     <div className="char__btns">
@@ -54,7 +119,7 @@ const CharInfo = () => {
                     Avengers (1996) #1
                 </li>
             </ul>
-        </div>
+        </>
     )
 }
 
