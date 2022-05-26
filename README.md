@@ -2,6 +2,8 @@
 
 ### The application was made as part of a pet project. An application on the theme of Marvel comics, allows you to get information about the characters, their biographies and appearances in comics.
 
+#### Demo https://fullstackkk.github.io/Marvel-Guid
+
 #### Standard application on React.
 
 - ## Used technologies

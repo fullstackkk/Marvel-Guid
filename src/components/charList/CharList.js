@@ -1,4 +1,4 @@
-import { Component } from 'react/cjs/react.production.min';
+import React, { Component } from 'react/cjs/react.production.min';
 import propTypes from 'prop-types';
 
 import MarvelService from '../../services/MarvelService';
@@ -8,6 +8,8 @@ import Spinner from '../spinner/Spinner';
 import './charList.scss';
 
 class CharList extends Component {
+
+    myRef = React.createRef()
 
     state = {
         charList: [],
@@ -22,6 +24,7 @@ class CharList extends Component {
 
     componentDidMount() {
         this.onRequest();
+        this.myRef.current.focus();
     }
 
     onRequest = (offset) => {
@@ -63,9 +66,19 @@ class CharList extends Component {
     onTargetItem = (e) => {
 
         const target = e.target;
-        console.log(e);
+        console.dir(target);
     }
 
+    CallSelectFrame = (id) => {
+        const listItem = document.querySelectorAll('.char__item');
+        const clazz = "char__item_selected"
+        listItem.forEach((item) => {
+            item.className = "char__item ";
+            if (item.id == id) {
+                item.className += clazz;
+            }
+        })
+    }
 
     renderItems(arr) {
         const items = arr.map((item) => {
@@ -75,9 +88,14 @@ class CharList extends Component {
             }
 
             return (
-                <li className="char__item"
+                <li className="char__item "
+                    ref={this.myRef}
                     key={item.id}
-                    onClick={() => this.props.onCharSelected(item.id)}>
+                    id={item.id}
+                    onClick={() => {
+                        this.props.onCharSelected(item.id);
+                        this.CallSelectFrame(item.id)
+                    }}>
                     <img src={item.thumbnail} alt={item.name} style={imgStyle} />
                     <div className="char__name">{item.name}</div>
                 </li>
@@ -85,7 +103,7 @@ class CharList extends Component {
         });
         // А эта конструкция вынесена для центровки спиннера/ошибки
         return (
-            <ul className="char__grid" onClick={this.onTargetItem}>
+            <ul className="char__grid">
                 {items}
             </ul>
         )
