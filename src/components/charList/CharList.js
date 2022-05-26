@@ -24,7 +24,6 @@ class CharList extends Component {
 
     componentDidMount() {
         this.onRequest();
-        this.myRef.current.focus();
     }
 
     onRequest = (offset) => {
