@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react/cjs/react.production.min";
+import { useState, useCallback } from "react";
 
 export const useHttp = () => {
     const [loading, setLoading] = useState(false);
