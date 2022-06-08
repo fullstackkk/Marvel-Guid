@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 
 import useMarvelService from '../../services/MarvelService';
 
@@ -24,10 +26,10 @@ const ComicsList = () => {
     const onRequest = (offset, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true);
         getAllComics(offset)
-            .then(onCharListLoaded)
+            .then(onComicsListLoaded)
     }
 
-    const onCharListLoaded = (newComicsList) => {
+    const onComicsListLoaded = (newComicsList) => {
         let ended = false;
         if (newItemLoading.length < 8) {
             ended = true;
@@ -40,16 +42,15 @@ const ComicsList = () => {
     }
 
     const renderItems = (arr) => {
-        console.log(arr);
         const items = arr.map((item, i) => {
             return (
                 <li className="comics__item"
-                    tabIndex={0}>
-                    <a href="#">
+                    key={i}>
+                    <Link to={`/comics/${item.id}`}>
                         <img src={item.thumbnail} alt={item.name} className="comics__item-img" />
                         <div className="comics__item-name">{item.name}</div>
                         <div className="comics__item-price">{item.price}</div>
-                    </a>
+                    </Link>
                 </li>
             )
         })
